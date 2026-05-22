@@ -30,7 +30,6 @@ def dominant_color_vector(image: Image.Image, size: int = 64) -> list[float]:
     Simple visual fingerprint for v1.
 
     This is not real AI yet. It compresses an image into average color features.
-    Good enough for a first demo because boards usually have repeated palettes.
     """
     image = image.resize((size, size))
     arr = np.asarray(image).astype("float32") / 255.0

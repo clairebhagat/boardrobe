@@ -44,8 +44,8 @@ def text_score(product_name: str) -> tuple[float, list[str]]:
     """
     V1 placeholder text scorer.
 
-    Later, replace this with text embeddings and extracted inspo keywords.
-    For now, it rewards product names that often match Pinterest fashion boards.
+    Will replace this with text embeddings and extracted inspo keywords.
+    Rewards product names that often match Pinterest fashion boards.
     """
     lower = product_name.lower()
     hits = []

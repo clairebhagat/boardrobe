@@ -27,7 +27,7 @@ def decode_data_url(data_url: str) -> Image.Image:
 
 def dominant_color_vector(image: Image.Image, size: int = 64) -> list[float]:
     """
-    Simple visual fingerprint for v1.
+    Simple visual fingerprint for v1
 
     """
     image = image.resize((size, size))

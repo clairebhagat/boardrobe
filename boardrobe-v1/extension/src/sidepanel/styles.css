@@ -40,6 +40,15 @@ button:disabled {
   transform: none;
 }
 
+.icon-button {
+  margin-left: auto;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+}
+
 button.primary {
   background: #171717;
   color: white;
@@ -142,6 +151,24 @@ h1 {
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: 14px;
+}
+
+.image-tile {
+  position: relative;
+}
+
+.remove-image {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border-radius: 999px;
+  background: rgba(23, 23, 23, 0.85);
+  color: white;
+  display: grid;
+  place-items: center;
 }
 
 .status,

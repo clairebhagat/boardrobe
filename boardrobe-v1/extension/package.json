@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && cp manifest.json dist/manifest.json",
     "preview": "vite preview"
   },
   "dependencies": {

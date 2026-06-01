@@ -11,9 +11,19 @@ function isLikelyProductImage(img) {
 
   if (!src) return false;
   if (src.startsWith("data:")) return false;
+  if (/bg-grey-solid-color|placeholder|spacer|transparent|sprite/i.test(src)) return false;
 
   const rect = img.getBoundingClientRect();
   if (rect.width < 80 || rect.height < 80) return false;
+
+  const naturalWidth = img.naturalWidth || 0;
+  const naturalHeight = img.naturalHeight || 0;
+  if (naturalWidth > 0 && naturalHeight > 0 && (naturalWidth < 80 || naturalHeight < 80)) {
+    return false;
+  }
+
+  const alt = (img.getAttribute("alt") || "").trim().toLowerCase();
+  if (alt === "placeholder" || alt === "image") return false;
 
   return true;
 }

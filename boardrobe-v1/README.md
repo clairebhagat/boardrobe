@@ -8,9 +8,10 @@ Boardrobe is a Chrome extension MVP that matches a user's inspo images to produc
 2. User clicks **Scan this page** on a shopping site.
 3. The content script extracts visible product cards from the page.
 4. The extension sends inspo images + products to the backend.
-5. The backend ranks products and returns match reasons.
+5. The backend embeds uploaded inspo images with a local CLIP model.
+6. The backend downloads each scanned product image, embeds it with CLIP, and ranks products by cosine similarity.
 
-This starter version uses a lightweight heuristic matcher so the whole app runs without paid AI APIs. Later, you can replace the matcher with real image embeddings or vision model calls.
+The current version uses a local Hugging Face CLIP model: `openai/clip-vit-base-patch32`.
 
 ## Project structure
 
@@ -38,15 +39,13 @@ boardrobe-v1/
         └── image_utils.py
 ```
 
----
-
 ## Backend setup
 
 From the project root:
 
 ```bash
 cd backend
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
@@ -64,7 +63,21 @@ Test it:
 curl http://localhost:8000/health
 ```
 
----
+### Important CLIP notes
+
+- The first backend request can be slow because Hugging Face will download and load `openai/clip-vit-base-patch32`.
+- Later requests are much faster because the model stays in memory and product-image embeddings are cached in memory by `imageUrl`.
+- Product images are downloaded at match time from the `imageUrl` values scraped from the current page.
+- If some product images fail to download or decode, the request still succeeds and those products simply get lower scores.
+
+### Backend logging
+
+Each `/match` request logs:
+
+- number of inspo images embedded
+- number of product images attempted
+- number of product images embedded successfully
+- total matching time
 
 ## Extension setup
 
@@ -95,8 +108,6 @@ Then load it in Chrome:
 9. Click **Scan this page**
 10. Click **Match products**
 
----
-
 ## Good sites to test first
 
 Start on category/listing pages where many product cards are visible, such as:
@@ -109,49 +120,18 @@ Start on category/listing pages where many product cards are visible, such as:
 
 Some sites lazy-load images, so scroll a little before scanning.
 
----
+## Current scope
 
-## What to improve next
-
-### 1. Better product scraping
-
-The current scraper is generic. Eventually add site-specific adapters:
+Boardrobe currently compares:
 
 ```text
-hm.com
-zara.com
-uniqlo.com
-ssense.com
-ikea.com
+uploaded inspo images -> product images found on the current page
 ```
 
-### 2. Real AI matching
+It does not yet:
 
-Replace the current heuristic backend with:
+- crawl full-site inventory
+- use Pinterest auth or board import
+- store catalog embeddings in a database
 
-```text
-image -> caption
-caption -> text embedding
-product -> image/text embedding
-similarity search
-```
-
-or use direct image embeddings.
-
-### 3. Pinterest sync
-
-Once matching works, add Pinterest OAuth/API or a manual board import flow.
-
----
-
-## V1 design principle
-
-Do not start with perfect Pinterest integration.
-
-Start with:
-
-```text
-Upload inspo images -> scan products -> rank matches
-```
-
-That proves the main product idea first.
+That keeps the current MVP focused on validating the core visual matching loop first.

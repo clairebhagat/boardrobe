@@ -9,7 +9,7 @@ import {
   RotateCcw
 } from "lucide-react";
 
-const BACKEND_URL = "http://localhost:8000";
+const BACKEND_URL = "http://localhost:8000"; // for now 
 const STORAGE_KEY = "boardrobe-sidepanel-state";
 const MAX_PRODUCT_IMAGES = 24;
 

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boardrobe</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f6efe7;
+        --paper: #fffaf4;
+        --ink: #211b16;
+        --muted: #6f6255;
+        --line: rgba(63, 45, 28, 0.14);
+        --accent: #b33b62;
+        --accent-dark: #8f284a;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(240, 208, 171, 0.8), transparent 34%),
+          linear-gradient(180deg, #fbf6f1 0%, var(--bg) 100%);
+        min-height: 100vh;
+      }
+
+      main {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 48px 20px 72px;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 48px;
+      }
+
+      .brand {
+        font-weight: 800;
+        font-size: 20px;
+        letter-spacing: -0.03em;
+      }
+
+      nav a {
+        color: var(--muted);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 14px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 28px;
+        align-items: stretch;
+      }
+
+      .card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: 36px;
+        box-shadow: 0 20px 50px rgba(69, 45, 19, 0.08);
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      h1 {
+        margin: 0;
+        font-family: "Iowan Old Style", "Palatino Linotype", serif;
+        font-size: clamp(46px, 8vw, 76px);
+        line-height: 0.92;
+        letter-spacing: -0.055em;
+      }
+
+      .lede {
+        margin-top: 20px;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.6;
+        max-width: 620px;
+      }
+
+      .actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 28px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        padding: 0 18px;
+        border-radius: 999px;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .button.primary {
+        color: #fffaf4;
+        background: var(--accent);
+      }
+
+      .button.secondary {
+        color: var(--ink);
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.4);
+      }
+
+      .visual {
+        position: relative;
+        overflow: hidden;
+        min-height: 420px;
+      }
+
+      .phone {
+        position: absolute;
+        inset: 32px 28px;
+        border-radius: 34px;
+        background: #211b16;
+        padding: 18px;
+        box-shadow: 0 24px 60px rgba(33, 27, 22, 0.22);
+        transform: rotate(2deg);
+      }
+
+      .screen {
+        height: 100%;
+        border-radius: 24px;
+        background: #fffaf4;
+        padding: 18px;
+        overflow: hidden;
+      }
+
+      .mini-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .tile {
+        border-radius: 18px;
+        height: 102px;
+        background: linear-gradient(135deg, #dec7b0, #f6efe7);
+        border: 1px solid var(--line);
+      }
+
+      .tile:nth-child(2) {
+        background: linear-gradient(135deg, #241f1b, #8a7968);
+      }
+
+      .tile:nth-child(3) {
+        background: linear-gradient(135deg, #fffaf4, #c9a98a);
+      }
+
+      .tile:nth-child(4) {
+        background: linear-gradient(135deg, #b33b62, #f2c2cf);
+      }
+
+      .match {
+        margin-top: 16px;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 14px;
+        background: rgba(255, 250, 244, 0.9);
+      }
+
+      .match strong {
+        display: block;
+        font-size: 15px;
+      }
+
+      .match span {
+        display: block;
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .sections {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 20px;
+      }
+
+      .feature h2 {
+        margin: 0 0 10px;
+        font-size: 18px;
+      }
+
+      .feature p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 15px;
+      }
+
+      footer {
+        margin-top: 32px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      footer a {
+        color: var(--accent-dark);
+      }
+
+      @media (max-width: 800px) {
+        .hero,
+        .sections {
+          grid-template-columns: 1fr;
+        }
+
+        .visual {
+          min-height: 360px;
+        }
+
+        .card {
+          padding: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav>
+        <div class="brand">Boardrobe</div>
+        <a href="./privacy.html">Privacy Policy</a>
+      </nav>
+
+      <section class="hero">
+        <article class="card">
+          <p class="eyebrow">Style matching for shopping</p>
+          <h1>Shop your inspiration board.</h1>
+          <p class="lede">
+            Boardrobe helps users turn saved style inspiration into shoppable product
+            recommendations. Upload inspiration images, scan a shopping page, and find
+            products that visually match your board.
+          </p>
+
+          <div class="actions">
+            <a class="button primary" href="./privacy.html">View Privacy Policy</a>
+            <a class="button secondary" href="mailto:1clairebhagat@gmail.com">Contact</a>
+          </div>
+        </article>
+
+        <aside class="card visual" aria-label="Boardrobe preview">
+          <div class="phone">
+            <div class="screen">
+              <div class="mini-title">
+                <span>Boardrobe</span>
+                <span>92% match</span>
+              </div>
+
+              <div class="grid">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+              </div>
+
+              <div class="match">
+                <strong>Visual match found</strong>
+                <span>
+                  Similar palette, silhouette, and overall style direction to your
+                  selected inspiration images.
+                </span>
+              </div>
+
+              <div class="match">
+                <strong>Designed for discovery</strong>
+                <span>
+                  Compare inspiration images with product photos from the page you are
+                  shopping on.
+                </span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="sections">
+        <article class="card feature">
+          <h2>Upload inspo</h2>
+          <p>
+            Start with style references or saved images that capture the look you want.
+          </p>
+        </article>
+
+        <article class="card feature">
+          <h2>Scan products</h2>
+          <p>
+            Boardrobe reads visible product images and details from a shopping page.
+          </p>
+        </article>
+
+        <article class="card feature">
+          <h2>Find matches</h2>
+          <p>
+            Visual matching helps surface products closest to your inspiration.
+          </p>
+        </article>
+      </section>
+
+      <footer>
+        <p>
+          Boardrobe is currently in development. For privacy questions, contact
+          <a href="mailto:1clairebhagat@gmail.com">1clairebhagat@gmail.com</a>.
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

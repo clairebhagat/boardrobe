@@ -51,6 +51,19 @@ pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
 ```
 
+If you want Pinterest auth enabled, set these backend environment variables before starting FastAPI:
+
+```bash
+export PINTEREST_APP_ID="your-pinterest-app-id"
+export PINTEREST_APP_SECRET="your-pinterest-app-secret"
+```
+
+Also add your Chrome extension redirect URI to the Pinterest app config. Boardrobe uses the Chrome Identity redirect format:
+
+```text
+https://<your-extension-id>.chromiumapp.org/pinterest
+```
+
 The backend will run at:
 
 ```text
